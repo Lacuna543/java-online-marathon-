@@ -1,10 +1,8 @@
 package Sprint02.task2;
 
 import javax.naming.Name;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+import java.util.stream.Collectors;
 
 interface DrinkReceipt {
     String getName();
@@ -20,6 +18,7 @@ public class Caffee implements DrinkReceipt, DrinkPreparation, Rating {
     private String name;
     private int rating;
     private Map<String, Integer> ingredients;
+
 
     public Caffee(String name, int rating) {
         this.name = name;
@@ -40,7 +39,7 @@ public class Caffee implements DrinkReceipt, DrinkPreparation, Rating {
 
     @Override
     public Map<String, Integer> makeDrink() {
-new HashMap<String, Integer>() {{
+        Map<String, Integer> ingredients = new HashMap<String, Integer>() {{
             put("Water", 100);
             put("Arabica", 20);
         }};
@@ -89,25 +88,9 @@ class Cappuccino extends Caffee {
     }
 }
  class MyUtils {
-   /* Espresso espresso = new Espresso();
-    Cappuccino cappuccino = new Cappuccino();
-    Caffee caffee = new Caffee();*/
     public Map<String, Double> averageRating(List<Caffee> coffees) {
-        HashMap<String, ArrayList<Integer>> tmp = new HashMap<String, ArrayList<Integer>>();
-        coffees.add(new Espresso("Espresso", 8));
-        coffees.add(new Cappuccino("Cappuccino", 10));
-        coffees.add(new Espresso("Espresso", 10));
-        coffees.add(new Cappuccino("Cappuccino", 6));
-        coffees.add(new Caffee("Caffee", 6));
-        HashMap<String, Double> result = new HashMap<String, Double>();
-        for (Map.Entry<String, ArrayList<Integer>> entry : tmp.entrySet()) {
-            Double avg = 0.;
-            for (Integer i : entry.getValue()) {
-                avg += i;
-            }
-            avg /= entry.getValue().size();
-            result.put(entry.getKey(), avg);
-        }
-        return result;
+        return coffees.stream()
+                .collect(Collectors.groupingBy(Caffee::getName,
+                        Collectors.averagingDouble(Caffee::getRating)));
     }
 }
