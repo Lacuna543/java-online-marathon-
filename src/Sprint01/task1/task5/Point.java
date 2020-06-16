@@ -1,4 +1,4 @@
-package task5;
+package Sprint01.task1.task5;
 
 public class Point {
     private int x, y;

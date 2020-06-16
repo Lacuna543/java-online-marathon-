@@ -1,4 +1,4 @@
-package task3;
+package Sprint01.task1.task3;
 
 public class Employee {
     private float salary;

@@ -1,4 +1,4 @@
-package task2;
+package Sprint01.task1.task2;
 
 public class Employee {
     public String fullName;
