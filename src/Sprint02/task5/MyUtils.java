@@ -65,9 +65,11 @@ public class MyUtils {
         if (firures == null || firures.isEmpty()) {
             return 0;
         }
-      //.reduce(new Rectang() .sum reduce(Double::sum).orElse(0)if (firures == null){
 
-            return firures.stream().mapToDouble(Figure::getPerimeter).sum();
+
+      //.reduce(new Rectang() .sum reduce(Double::sum).orElse(0)   filter(Objects::nonNull)
+
+            return firures.stream().filter(Objects::nonNull).mapToDouble(Figure::getPerimeter).sum();
 
 
     }
