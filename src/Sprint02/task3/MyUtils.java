@@ -29,12 +29,6 @@ class Person {
         return Objects.hash(name);
     }
 
-    @Override
-    public String toString() {
-        return "Person{" +
-                "name='" + name + '\'' +
-                '}';
-    }
 }
 
 class Student extends Person {
@@ -56,28 +50,20 @@ class Student extends Person {
         return studyYears;
     }
 
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof Student)) return false;
+        if (o == null || getClass() != o.getClass()) return false;
         if (!super.equals(o)) return false;
         Student student = (Student) o;
-        return getStudyYears() == student.getStudyYears() &&
-                Objects.equals(getStudyPlace(), student.getStudyPlace());
+        return studyYears == student.studyYears &&
+                Objects.equals(studyPlace, student.studyPlace);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(super.hashCode(), getStudyPlace(), getStudyYears());
-    }
-
-    @Override
-    public String toString() {
-        return "Student{" +
-                "name='" + super.getName() + '\'' +
-                ", studyPlace='" + studyPlace + '\'' +
-                ", studyYears=" + studyYears +
-                '}';
+        return Objects.hash(super.hashCode(), studyPlace, studyYears);
     }
 }
 
@@ -103,62 +89,69 @@ class Worker extends Person {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof Worker)) return false;
+        if (o == null || getClass() != o.getClass()) return false;
         if (!super.equals(o)) return false;
         Worker worker = (Worker) o;
-        return getExperienceYears() == worker.getExperienceYears() &&
-                Objects.equals(getWorkPosition(), worker.getWorkPosition());
+        return experienceYears == worker.experienceYears &&
+                Objects.equals(workPosition, worker.workPosition);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(super.hashCode(), getWorkPosition(), getExperienceYears());
-    }
-
-    @Override
-    public String toString() {
-        return "Worker{" +
-                "name='" + super.getName() + '\'' +
-                ", workPosition='" + workPosition + '\'' +
-                ", experienceYears=" + experienceYears +
-                '}';
+        return Objects.hash(super.hashCode(), workPosition, experienceYears);
     }
 }
 
 public class MyUtils {
     public List<Person> maxDuration(List<Person> persons) {
-        List<Student> studentList = new ArrayList<>();
-        List<Worker> workerList = new ArrayList<>();
-        Set<Person> output = new LinkedHashSet<>();
-
         if (persons == null) {
             return null;
         }
         if (persons.size() == 0) {
             return persons;
         }
-
-     //   persons.add(new Person("Ivan"));
-
+        List<Student> studentList = new ArrayList<>();
+        List<Worker> workerList = new ArrayList<>();
+        List<Person> output = new ArrayList<>();
+        for (Person person : persons) {
+            if (person instanceof Student && !studentList.contains(person)) {
+                studentList.add((Student) person);
+            }
+            if (person instanceof Worker && !workerList.contains(person)) {
+                workerList.add((Worker) person);
+            }
+        }
         Student maxYearOfStudents = Collections.max(studentList, Comparator.comparingInt(Student::getStudyYears));
         Worker maxYearOfWorkers = Collections.max(workerList, Comparator.comparingInt(Worker::getExperienceYears));
-
         int maxStudyYears = maxYearOfStudents.getStudyYears();
         int maxWorkYears = maxYearOfWorkers.getExperienceYears();
 
-        for (Person person : persons) {
-
-              if (person instanceof Student && ((Student) person).getStudyYears() == maxStudyYears ) {
+        if (!studentList.isEmpty()) {
+            for (Student student : studentList) {
+                if (student.getStudyYears() == maxStudyYears) {
+                    output.add(student);
+                }
+            }
+        }
+        if (!workerList.isEmpty()) {
+            for (Worker worker : workerList) {
+                if (worker.getExperienceYears() == maxWorkYears) {
+                    output.add(worker);
+                }
+            }
+        }
+           /* if (person instanceof Student && ((Student) person).getStudyYears() == maxStudyYears ) {
                 studentList.add((Student) persons);
                 output.add((Person) studentList);
             } else if (person instanceof Worker && ((Worker) person).getExperienceYears() == maxWorkYears){
-                  workerList.add((Worker) persons);
-                  output.add((Person) workerList);
-              }
-
-        }
-        return new ArrayList<>(output);
-
-
+                workerList.add((Worker) persons);
+                output.add((Person) workerList);
+            }*/
+        return output;
     }
 }
+
+
+
+
+
