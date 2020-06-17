@@ -87,11 +87,8 @@ class Manager extends Employee {
 public class MyUtils {
     public List<Employee> largestEmployees(List<Employee> workers) {
 
-        if (workers == null) {
-            return null;
-        }
-        if (workers.size() == 0) {
-            return workers;
+        if (workers == null || workers.size() == 0) {
+            return new ArrayList<>();
         }
         BigDecimal maxPayment = new BigDecimal(0);
         int maxExperience = 0;
