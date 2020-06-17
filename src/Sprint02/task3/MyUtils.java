@@ -2,8 +2,6 @@ package Sprint02.task3;
 
 import java.util.*;
 
-import java.util.*;
-
 class Person {
 
     private String name;
@@ -105,15 +103,17 @@ class Worker extends Person {
 public class MyUtils {
     public List<Person> maxDuration(List<Person> persons) {
         if (persons == null) {
-            return null;
+            return new ArrayList<>();
         }
         if (persons.size() == 0) {
             return persons;
         }
+//        persons.removeIf(Objects::isNull);
         List<Student> studentList = new ArrayList<>();
         List<Worker> workerList = new ArrayList<>();
         List<Person> output = new ArrayList<>();
         for (Person person : persons) {
+            if (person ==  null) {continue;}
             if (person instanceof Student && !studentList.contains(person)) {
                 studentList.add((Student) person);
             }
@@ -121,12 +121,12 @@ public class MyUtils {
                 workerList.add((Worker) person);
             }
         }
-        Student maxYearOfStudents = Collections.max(studentList, Comparator.comparingInt(Student::getStudyYears));
-        Worker maxYearOfWorkers = Collections.max(workerList, Comparator.comparingInt(Worker::getExperienceYears));
-        int maxStudyYears = maxYearOfStudents.getStudyYears();
-        int maxWorkYears = maxYearOfWorkers.getExperienceYears();
+
 
         if (!studentList.isEmpty()) {
+            Student maxYearOfStudents = Collections.max(studentList, Comparator.comparingInt(Student::getStudyYears));
+            int maxStudyYears = maxYearOfStudents.getStudyYears();
+
             for (Student student : studentList) {
                 if (student.getStudyYears() == maxStudyYears) {
                     output.add(student);
@@ -134,6 +134,9 @@ public class MyUtils {
             }
         }
         if (!workerList.isEmpty()) {
+            Worker maxYearOfWorkers = Collections.max(workerList, Comparator.comparingInt(Worker::getExperienceYears));
+            int maxWorkYears = maxYearOfWorkers.getExperienceYears();
+
             for (Worker worker : workerList) {
                 if (worker.getExperienceYears() == maxWorkYears) {
                     output.add(worker);
