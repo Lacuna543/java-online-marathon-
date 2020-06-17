@@ -61,12 +61,14 @@ class Square implements Figure {
 }
 
 public class MyUtils {
-    public double sumPerimeter(List<?> firures) {
+    public double sumPerimeter(List<Figure> firures) {
         if (firures == null || firures.isEmpty()) {
             return 0;
         }
-        List<Figure> list = new ArrayList<>();
-        return list.stream().mapToDouble(Figure::getPerimeter).sum();
+      //.reduce(new Rectang() .sum reduce(Double::sum).orElse(0)if (firures == null){
+
+            return firures.stream().mapToDouble(Figure::getPerimeter).sum();
+
 
     }
 
