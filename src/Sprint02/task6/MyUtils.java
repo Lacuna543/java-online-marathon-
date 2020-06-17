@@ -1,8 +1,6 @@
 package Sprint02.task6;
 
-import java.util.List;
-import java.util.Objects;
-import java.util.OptionalDouble;
+import java.util.*;
 
 abstract class Shape {
     private String name;
@@ -15,13 +13,7 @@ abstract class Shape {
         return name;
     }
 
-    public double getCircleArea(){
 
-    }
-
-    public double getRectangleArea(){
-
-    }
 
     /*public double getArea(){
         if (getName().equals("Circle")){
@@ -98,8 +90,17 @@ class Rectangle extends Shape {
 }
 public class MyUtils {
     public List<Shape> maxAreas(List<Shape> shapes) {
-        OptionalDouble MaxRectangleArea = shapes.stream().mapToDouble(Shape::getArea).max();
-        OptionalDouble MaxCircleArea = shapes.stream().mapToDouble(Shape::getArea).max();
+        double maxCircleArea = shapes.stream().filter(Circle.class::isInstance).mapToDouble(Shape::getArea).max().orElse(0);
 
+        double maxRectArea = shapes.stream().filter(Rectangle.class::isInstance).mapToDouble(Shape::getArea).max().orElse(0);
+
+        Set<Shape> output = new HashSet<>();
+        for (Shape s : shapes) {
+            if (s instanceof Circle && s.getArea() == maxCircleArea
+                    || s instanceof Rectangle && s.getArea() == maxRectArea) {
+                output.add(s);
+            }
+        }
+        return new ArrayList<>(output);
     }
 }
