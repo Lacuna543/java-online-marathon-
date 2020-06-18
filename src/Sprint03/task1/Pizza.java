@@ -17,9 +17,7 @@ class Pizza {
         return cheese;
     }
 
-    public String getMeat() {
-        return meat;
-    }
+    public String getMeat() { return meat; }
 
     public String getSeafood() {
         return seafood;
@@ -39,9 +37,9 @@ class Pizza {
     }
 
     // Describe PizzaBuilder class here
-    public static class PizzaBuilder extends Pizza {
+    public static class PizzaBuilder {
 
-        private Pizza pizza;
+        private Pizza pizza = new Pizza();
 
 
         private PizzaBuilder() {
@@ -74,8 +72,12 @@ class Pizza {
             pizza.mushroom = mushroom;
             return PizzaBuilder.this;
         }
-    }
 
+
+        public Pizza build() {
+            return pizza;
+        }
+    }
 }
 
 class Oven {
@@ -83,8 +85,9 @@ class Oven {
 
         // Create and return instance of Pizza class here
 
-        return Pizza.base().addCheese("Dor Blue").addSeafood("Shrimps").addVegetable("Tomato");
 
+        return Pizza.base().addCheese("Dor Blue").addSeafood("Shrimps").addVegetable("Tomato").build();
+        // hasPizzaAtLeastThreeIngredients()
     }
 }
 
