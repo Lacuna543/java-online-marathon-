@@ -1,7 +1,6 @@
 package Sprint03.task6;
 
 
-import java.lang.reflect.Array;
 import java.util.*;
 
 public class AddressBook implements Iterable{
@@ -119,7 +118,7 @@ public class AddressBook implements Iterable{
         return counter;
     }
 
-    public void sortedBy(SortOrder sortOrder) {
+    public void sortedBy(SortOrder2 sortOrder2) {
 
         Arrays.sort(addressBook, 0, counter, new Comparator<NameAddressPair>() {
             @Override
@@ -129,7 +128,7 @@ public class AddressBook implements Iterable{
                 if (result == 0) {
                     result = o1.person.lastName.compareTo(o2.person.lastName);
                 }
-                return sortOrder == SortOrder.ASC ? result : -result;
+                return sortOrder2 == SortOrder2.ASC ? result : -result;
             }
         });
     }
