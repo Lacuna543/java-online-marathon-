@@ -59,7 +59,7 @@ public class Plant {
            plant = tryCreatePlant("Ordinary", color, name);
 
         }catch (ColorException colorException) {
-         plant = tryCreatePlant(type, "Red", name);
+         plant = tryCreatePlant(type, "Red ", name);
         }
         return plant;
     }
