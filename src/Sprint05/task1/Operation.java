@@ -1,7 +1,11 @@
 package Sprint05.task1;
 
 class Operation {
-    public static int squareRectangle(int a, int b) throws IllegalArgumentException { //этот метод возможно выбросит такое исключение, в ходе метода может возникнуть ошибка, кр текст, таким образом обраюат. исключ. (контролируем)
+    public static void main(String[] args) {
+
+        System.out.println(squareRectangle(0,5));
+}
+    public static int squareRectangle(int a, int b) throws IllegalArgumentException { //этот метод возможно выбросит такое исключение, в ходе метода может возникнуть ошибка, кр. текст, таким образом обра,ат. исключ. (контролируем)
 
 
         if (a <= 0 || b <= 0) {
@@ -21,3 +25,5 @@ class Operation {
         return -1;
     }
 }
+
+
