@@ -1,4 +1,4 @@
-package Sprint01.task1.task6;
+package Sprint01.task6;
 
 public class Product {
     private String name;
