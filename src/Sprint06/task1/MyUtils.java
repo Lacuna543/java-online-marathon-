@@ -11,7 +11,7 @@ import java.util.function.Predicate;
 public class MyUtils {
 
     public static void main(String[] args) {
-        int cnt = getCount(new int[]{1, 2, 3, 4, 5}, (int x) -> x % 2 == 0);
+        int cnt = getCount(new int[]{1, 2, 3, 4, 5}, (Integer x) -> x % 2 == 0);
 
         System.exit(0);
     }
