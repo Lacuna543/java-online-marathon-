@@ -1,17 +1,15 @@
 package Sprint07.task2;
 
 import java.lang.annotation.*;
-import java.lang.reflect.Method;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
-import java.util.Arrays;
 import java.util.Date;
-import java.util.Scanner;
+
 
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.TYPE)
 @interface Review {
-    String date() default " today";
+    String date() default "today";
 
     String reviewer();
 }
@@ -19,14 +17,26 @@ import java.util.Scanner;
 
 public class Util {
 
-    public static String review(String className) throws ClassNotFoundException {
+    public static void review(String className) {
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
         String dateString = format.format(new Date());
 
-        Class tempClass = Class.forName(className);
-        Annotation[] annotations = tempClass.getAnnotations();
+        try {
+            Class<?> tempClass = Class.forName(className);
+            Annotation annotation = tempClass.getAnnotation(Review.class);
+            if (annotation == null) {
+                System.out.println("Class " + className + " isn't marked as Reviewed");
+            } else {
+                if (((Review) annotation).date().equals("today")) {
+                    System.out.println("Class " + className + " was reviewed " + LocalDate.now() + " by " + ((Review) annotation).reviewer() + ".");
+                } else
+                    System.out.println("Class " + className + " was reviewed " + ((Review) annotation).date() + " by " + ((Review) annotation).reviewer() + ".");
 
-        return "Class " + className.getClass() + " was reviewed " + dateString + " by " + Arrays.toString(Review.class.getAnnotations());
+            }
+        } catch (ClassNotFoundException e) {
+            System.out.println("Class " + className + " was not found");
+        }
+
 
     }
 }
