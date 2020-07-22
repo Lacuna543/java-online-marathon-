@@ -21,6 +21,7 @@ public class MyUtils {
 
     public Statement createStatement() throws SQLException {
         return statement = connection.createStatement();
+
     }
 
     public void closeStatement() throws SQLException {
